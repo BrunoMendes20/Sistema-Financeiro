@@ -17,7 +17,8 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'],
+            'password' => ['required', 'string', 'min:8','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/'],
+            'password_confirmation' => ['required', 'same:password'],
         ];
 
     }
@@ -33,7 +34,8 @@ class RegisterRequest extends FormRequest
             'email.unique' => 'Este e-mail não pode ser utilizado.',
             'password.required' => 'A senha é obrigatória.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password.confirmed' => 'As senhas não conferem.',
+            'password_confirmation.required' => 'A confirmação da senha é obrigatória.',
+            'password_confirmation.same' => 'As senhas não conferem.',
             'password.regex' => 'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula e um número.',
         ];
     }
