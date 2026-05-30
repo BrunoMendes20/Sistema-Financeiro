@@ -18,4 +18,5 @@ Route::middleware('guest')->group(function (){
 // Protected routes - for authenticated users only
 Route::middleware('auth')->group(function(){
     Route::post('/logout', [LogoutController::class, 'destroy'])->name('logout');
+   
 });
