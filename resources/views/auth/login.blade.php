@@ -20,6 +20,16 @@
                 <x-specific-alerts for='password' />
             </div>
 
+            <div class="d-flex justify-content-end mb-3">
+                <a href="{{ route('password.request') }}" class="text-decoration-none">Esqueceu sua
+                    senha?</a>
+            </div>
+            <div class="mb-3">
+                <input type="checkbox" name="remember" id="remember" class="form-check-input" value="1"
+                    {{ old('remember') ? 'checked' : '' }}>
+                <label for="remember" class="form-check-label">Lembrar-me</label>
+            </div>
+
             <div class="d-grid mt-4">
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </div>
