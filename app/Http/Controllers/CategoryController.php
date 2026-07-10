@@ -2,63 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+   
+    public function index(): View
     {
-        //
+        $categories = Auth::user()->categories()
+            ->orderBy('type')
+            ->orderBy('name')
+            ->get();
+
+        return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+  
+    public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        //
+        Gate::authorize('create', Category::class);
+
+        Auth::user()->categories()->create($request->validated());
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'categoria criada com sucesso');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+  
+    public function edit(Category $category): View
     {
-        //
+        Gate::authorize('view', $category);
+       
+        return view('categories.edit', compact('category'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    
+   
+    public function update(UpdateCategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        Gate::authorize('update', $category);
+        
+        $category->update($request->validated());
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'categoria atualizada com sucesso');
     }
+    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Category $category): RedirectResponse
     {
-        //
-    }
+        Gate::authorize('delete', $category);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $category->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'categoria deletada com sucesso');
     }
 }
