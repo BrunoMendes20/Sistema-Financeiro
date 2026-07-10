@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Category;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
@@ -12,18 +12,28 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string','min:3','max:255'],
+            'type' => ['required', 'in:income,expense'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'O nome da categoria é obrigatório.',
+            'name.min' => 'O nome deve ter pelo menos :min caracteres.',
+            'name.max' => 'O nome não pode ter mais de :max caracteres.',
+            'type.required' => 'O tipo da categoria é obrigatório.',
+            'type.in' => 'O tipo deve ser receita ou despesa.',
         ];
     }
 }
