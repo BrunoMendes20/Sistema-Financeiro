@@ -15,10 +15,13 @@ class CategoryController extends Controller
    
     public function index(): View
     {
-        $categories = Auth::user()->categories()
-            ->orderBy('type')
-            ->orderBy('name')
-            ->get();
+        $categories = Category::where(function ($query){
+            $query->whereNull('user_id')
+                ->orWhere('user_id', Auth::id());
+        })
+        ->orderBy('name')
+        ->orderBy('type')
+        ->get();
 
         return view('categories.index', compact('categories'));
     }
