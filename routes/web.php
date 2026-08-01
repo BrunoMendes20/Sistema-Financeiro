@@ -15,4 +15,7 @@ Route::middleware(['auth'])->group(function (){
     // Resource gera automaticamente as rotas para as ações do controller, como index, create, store, edit, update e destroy.
     Route::resource('categories', CategoryController::class)
     ->except(['show']);
+
+    Route::resource('transactions', \App\Http\Controllers\TransactionController::class)
+    ->except(['show']);
 });
