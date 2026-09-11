@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-
+use App\Services\AI\FinancialAnalysisService;
 
 
 class TransactionController extends Controller
@@ -50,7 +50,14 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request): RedirectResponse
     {
-        Auth::user()->transactions()->create($request->validated());
+        $data = $request->validated();
+
+        if(empty($data['category_id']))
+        {
+            $data['category_id'] = app(FinancialAnalysisService::class)->categorize($data['description']);
+
+        }
+        Auth::user()->transactions()->create($data);
 
         return redirect()
             ->route('transactions.index')
