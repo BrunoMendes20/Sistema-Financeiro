@@ -106,6 +106,8 @@
                     <p class="text-muted text-center py-4">Nenhum gasto este mês.</p>
                 @endforelse
             </x-form-card>
+
+            @livewire('financial-chat')
         </div>
     </div>
 
