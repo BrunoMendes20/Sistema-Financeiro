@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
-use Illuminte\View\View;
+use Illuminate\Http\RedirectResponse;
+
 
 class DashboardController extends Controller
 {
@@ -31,7 +31,7 @@ class DashboardController extends Controller
             ->orderBy('date', 'desc')
             ->limit(5)
             ->get();
-      
+
         $expensesByCategory = $user->transactions()
             ->with('category')
             ->where('type', 'expense')
@@ -48,5 +48,14 @@ class DashboardController extends Controller
             'recentTransactions',
             'expensesByCategory'
         ));
+    }
+
+     public function clearChat(): RedirectResponse
+    {
+        auth()->user()->chatMessages()->delete();
+
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Histórico limpo com sucesso!');
     }
 }
