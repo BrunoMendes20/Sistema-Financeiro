@@ -55,7 +55,7 @@ class DashboardController extends Controller
         auth()->user()->chatMessages()->delete();
 
         return redirect()
-            ->route('dashboard')
-            ->with('success', 'Histórico limpo com sucesso!');
+            ->route('dashboard');
+           
     }
 }

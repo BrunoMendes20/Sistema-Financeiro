@@ -19,7 +19,7 @@ export default function () {
 
     const res = http.get(url);
 
-    // Aqui queremos ver o servidor a aguentar com sucesso (200 OK)
+    // assegura que o servidor respondeu com sucesso (código 200)
     check(res, {
         "Servidor respondeu OK (200)": (r) => r.status === 200,
     });

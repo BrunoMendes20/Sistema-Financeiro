@@ -1,7 +1,7 @@
 <x-layout-guest page-title="Cadastrar">
     <x-auth-card pageTitle="Cadastrar">
         <form action="{{ route('register.store') }}" method="POST">
-
+            @csrf
 
             <div class="mb-3">
                 <label class="form-label"><strong>Nome</strong></label>

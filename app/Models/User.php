@@ -18,7 +18,7 @@ use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordBase;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+   
     use HasFactory, Notifiable;
 
     /**

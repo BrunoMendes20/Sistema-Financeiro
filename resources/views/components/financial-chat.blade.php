@@ -30,7 +30,7 @@
         <form wire:submit="sendMessage">
             @csrf
             <div class="input-group">
-                <input type="text" wire:model="message" class="form-control" placeholder="Pergunta algo sobre finanças..." wire:loading.attr="disabled">
+                <input type="text" wire:model="message" class="form-control" placeholder="Pergunte algo sobre finanças..." wire:loading.attr="disabled">
                 <button class="btn btn-primary" type="submit" wire:loading.attr="disabled">
                     <span wire:loading wire:target="sendMessage">
                         <span class="spinner-border spinner-border-sm"></span>

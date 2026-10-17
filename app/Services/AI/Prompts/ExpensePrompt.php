@@ -7,6 +7,7 @@ class ExpensePrompt
 {
     public function build(array $transactions): string
     {
+       
         $transactionList = collect($transactions)->map(fn($t) => 
             "- {$t['description']} | {$t['category']} | R$ {$t['amount']} | {$t['type']} | {$t['date']}"
         )->join("\n");
