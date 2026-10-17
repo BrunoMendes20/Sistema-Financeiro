@@ -28,7 +28,7 @@ class LoginController extends Controller
         
         $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt($credentials)) {
+        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
             RateLimiter::hit($key, 60); // bloqueia por 60 segundos após 5 tentativas
             return back()
                 ->withErrors(['email' => 'E-mail ou senha incorretos.',])
