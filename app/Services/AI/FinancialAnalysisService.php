@@ -27,10 +27,12 @@ class FinancialAnalysisService
 
     public function analyse(User $user): string
     {
+        $lastMonth = now()->subMonth();
+
         $transactions = $user->transactions()
             ->with('category')
-            ->whereMonth('date', now()->month)
-            ->whereYear('date', now()->year)
+            ->whereMonth('date', $lastMonth->month)
+            ->whereYear('date', $lastMonth->year)
             ->get()
             ->map(fn($t) => [
                 'description' => $t->description,
@@ -40,7 +42,7 @@ class FinancialAnalysisService
                 'date' => $t->date->format('Y-m-d'),
 
             ]);
-
+           
             $prompt = (new ExpensePrompt)->build($transactions->toArray());
           
             return $this->gemini->sendPrompt($prompt);
