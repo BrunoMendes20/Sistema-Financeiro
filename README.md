@@ -50,7 +50,7 @@ Antes de começar, certifique-se de ter instalado:
 ### 1. Clone o repositório
 
 ```bash
-git clonehttps://github.com/BrunoMendes20/Sistema-Financeiro
+git clone https://github.com/BrunoMendes20/Sistema-Financeiro
 cd sistema-financeiro
 ```
 
@@ -252,7 +252,7 @@ resources/views/
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **Bruno** — desenvolvedor back-end com em PHP e Laravel.
+Desenvolvido por **Bruno** — desenvolvedor back-end com foco em PHP e Laravel.
 
 ---
 
